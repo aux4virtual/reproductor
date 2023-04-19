@@ -96,6 +96,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .waveform {
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
 
@@ -154,8 +155,29 @@ h1, h2, h3, h4, h5, h6, p {
 /*Mobile*/
 @media (max-width: 425px) {
 .containerReproductor {
-    display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.headerReproductor {
+    margin-top: 0.5rem;
+}
+
+.fa-circle-play {
+    font-size: 80px;
+}
+
+.fa-circle-pause {
+    font-size: 80px;
+}
+
+.tituloReproductor p {
+    font-size: 13px;
+}
+
+.tituloReproductor h1{
+    font-size: 16px;
+
 }
 
 
