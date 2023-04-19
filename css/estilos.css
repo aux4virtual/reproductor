@@ -142,7 +142,7 @@ h1, h2, h3, h4, h5, h6, p {
 } */
 
 /*Mobile*/
-@media (max-width: 425px) {
+@media (max-width: 517px) {
 .containerReproductor {
     flex-direction: column;
     align-items: center;
