@@ -18,5 +18,8 @@ Este es un reproductor de audio simple creado con HTML, CSS y JavaScript.
 - Libreria waveform.js
 - Este reproductor de audio fue creado por Styven Ruiz Valencia como proyecto para Universidad Católica Luis Amigó.
 
+## Autores
+- [@stiven70](https://www.github.com/stiven70)
+
 ## Licencia
 Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
