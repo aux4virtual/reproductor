@@ -10,10 +10,17 @@ h1, h2, h3, h4, h5, h6, p {
 	vertical-align: baseline;
 }
 
+.imagenReproductor {
+    margin-right: 0.5rem;
+}
+
 .containerReproductor {
     display: flex;
-    border: 1px solid red;
-    align-items: center;
+    background: #fff;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    border-radius: 5px;
+    /* align-items: center; */
     width: 100%;
     max-width: 95vmax;
     padding: 0.5rem;;
@@ -25,21 +32,49 @@ h1, h2, h3, h4, h5, h6, p {
     flex-wrap: wrap;
     width: 100%;
     margin-left: 1rem;
-    border: 3px solid rgb(0, 26, 255);
+    /* border: 3px solid rgb(0, 26, 255); */
 }
 
 .headerReproductor {
     display: flex;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     align-items: center;
+    margin-bottom: 1rem;
 }
 
+.playreproductor {
+    margin-right: 0.5rem;
+}
+
+
+.btn-play, .btnretrasar, .btnVelocidad, .btnAdelantar {
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    cursor: pointer;
+}
+
+
 .fa-circle-play {
-    font-size: 100px;
+    font-size: 60px;
+    color: #007b99;
+}
+
+.fa-circle-play:hover {
+    color: #03a6cf;
 }
 
 .fa-circle-pause {
-    font-size: 100px;
+    font-size: 60px;
+    color: #007b99;
+}
+
+.fa-circle-pause:hover {
+    color: #03a6cf;
 }
 
 .tituloReproductor p {
@@ -50,42 +85,42 @@ h1, h2, h3, h4, h5, h6, p {
 
 .tituloReproductor h1{
     font-size: 23px;
-    font-weight: bold;
+    font-weight: 800;
     color: #666;
     line-height: 20px;
-
 }
 
 /* Progress Bar */
 #progress-bar {
-	position: relative;
-	width: 95%;
-	height: 10px;
-	margin: 1rem;
-	border-radius: 10px;
-	-webkit-box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
-		inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
-	box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
-		inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
-	overflow: hidden;
+    width: 100%;
 }
 
-#progress-bar-inner {
-	width: 0%;
-	height: 100%;
-	border-radius: 10px;
-	background: -webkit-gradient(
-		linear,
-		left top,
-		right top,
-		from(#007b99),
-		to(#f19100)
-	);
-	background: -webkit-linear-gradient(left, #007b99, #f19100);
-	background: -o-linear-gradient(left, #007b99, #f19100);
-	background: linear-gradient(90deg, #007b99, #f19100);
+.waveform {
+    margin-bottom: 1rem;
 }
 
+.current-time, .duration, .separadorTime {
+    color: #999;
+    font-size: 11px;
+}
+
+.btnretrasar, .btnVelocidad, .btnAdelantar {
+    color: #999;
+    margin-right: 0.5rem;
+    opacity: 0;
+}
+
+.containerReproductor:hover .btnretrasar {
+    opacity: 1;
+}
+
+.containerReproductor:hover .btnVelocidad {
+    opacity: 1;
+}
+
+.containerReproductor:hover .btnAdelantar {
+    opacity: 1;
+}
 
 .botones {
     display: flex;

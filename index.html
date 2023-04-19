@@ -15,14 +15,12 @@
       <img src="./img/ruta.png" alt="">
     </div>
     <div class="elementosReproductor">
-      <audio id="audio" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/Leo%20-%20Trying.mp3" type="audio/mpeg">
-
-      </audio>
+      <audio id="audio" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/308622/Leo%20-%20Trying.mp3" type="audio/mpeg"></audio>
       <div class="headerReproductor">
-        <div class="Playreproductor">
+        <div class="playreproductor">
           <button class="btn-play" id="play">
             <span>
-              <i id="icons" class="fa-solid fa-circle-play" style="color: #007b99;"></i>
+              <i id="icons" class="fa-solid fa-circle-play"></i>
             </span>
           </button>
         </div>
@@ -32,23 +30,22 @@
         </div>
       </div>
       <div id="progress-bar">
-        <div id="progress-bar-inner"></div>
+        <div id="waveform" class="waveform"></div>
       </div>
-      <div id="waveform"></div>
       <div class="botones">
         <div class="audio-time">
-          <span id="current-time">0:00</span>
-          <span>|</span>
-          <span id="duration">0:00</span>
+          <span id="current-time" class="current-time">0:00</span>
+          <span class="separadorTime">|</span>
+          <span id="duration" class="duration">0:00</span>
         </div>
         <div class="audio-time-controls">
-          <button id="retrasarBtn">
+          <button id="retrasarBtn" class="btnretrasar">
             <i class="fa-solid fa-rotate-left"></i>
           </button>
-          <button id="velocidadBtn">
+          <button id="velocidadBtn" class="btnVelocidad">
             <i id="icons2" class="fa-solid fa-user"></i>
           </button>
-          <button id="adelantarBtn">
+          <button id="adelantarBtn" class="btnAdelantar">
             <i class="fa-solid fa-rotate-right"></i>
           </button>
         </div>
