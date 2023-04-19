@@ -20,9 +20,7 @@ h1, h2, h3, h4, h5, h6, p {
     border: 1px solid #eee;
     box-sizing: border-box;
     border-radius: 5px;
-    /* align-items: center; */
     width: 100%;
-    max-width: 95vmax;
     padding: 0.5rem;;
 }
 
@@ -102,7 +100,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 .current-time, .duration, .separadorTime {
     color: #999;
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .btnretrasar, .btnVelocidad, .btnAdelantar {
@@ -135,22 +134,12 @@ h1, h2, h3, h4, h5, h6, p {
     opacity: 10;
 }
 
-/*Tablet*/
+/* Tablet
 @media (min-width: 768px) {
 
-/* Menú */
 
-/*title*/
 
-/*Skills*/
-
-/*Hobbies*/
-
-/*Formación Académica*/
-
-/*Experiencia Profesional*/
-
-}
+} */
 
 /*Mobile*/
 @media (max-width: 425px) {
