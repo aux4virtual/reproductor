@@ -85,16 +85,16 @@ btnPlay.addEventListener("click", () => {
     var currentSpeed = wavesurfer.getPlaybackRate();
 
     if (currentSpeed < 1.25) {
-      document.getElementById("icons2").className = "fa-solid fa-house";
+      document.getElementById("icons2").className = "imgVelocidad125";
        wavesurfer.setPlaybackRate(currentSpeed + 0.25);
     } else if (currentSpeed < 1.5) {
-      document.getElementById("icons2").className = "fa-solid fa-phone";
+      document.getElementById("icons2").className = "imgVelocidad15";
       wavesurfer.setPlaybackRate(currentSpeed + 0.25);
     } else if (currentSpeed < 2) {
-      document.getElementById("icons2").className = "fa-solid fa-circle-xmark";
+      document.getElementById("icons2").className = "imgVelocidad2";
       wavesurfer.setPlaybackRate(currentSpeed + 0.5);
     } else {
-      document.getElementById("icons2").className = "fa-solid fa-user";
+      document.getElementById("icons2").className = "imgVelocidad";
       wavesurfer.setPlaybackRate(1);
     }
 

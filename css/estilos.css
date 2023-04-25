@@ -44,8 +44,42 @@ h1, h2, h3, h4, h5, h6, p {
     margin-right: 0.5rem;
 }
 
+.imgVelocidad {
+    background-image: url(/img/1x.svg);
+}
 
-.btn-play, .btnretrasar, .btnVelocidad, .btnAdelantar {
+.imgMenu {
+    background-image: url(/img/menu.svg);
+}
+
+.imgVelocidad125 {
+    background-image: url(/img/1_25.svg);
+}
+
+.imgVelocidad15 {
+    background-image: url(/img/1_5.svg);
+}
+
+.imgVelocidad2 {
+    background-image: url(/img/2x.svg);
+}
+
+.imgadelantar {
+    background-image: url(/img/30.svg);
+}
+
+.imgretrasar {
+    background-image: url(/img/10.svg);
+}
+
+.imgadelantar, .imgVelocidad, .imgretrasar, .imgVelocidad125, .imgVelocidad15, .imgVelocidad2, .imgMenu {
+        width: 22px;
+        height: 22px;
+        background-size: cover;
+}
+
+
+.btn-play, .btnretrasar, .btnVelocidad, .btnAdelantar, .btnMenu {
     background: none;
     border: 0;
     color: inherit;
@@ -104,9 +138,9 @@ h1, h2, h3, h4, h5, h6, p {
     font-weight: 500;
 }
 
-.btnretrasar, .btnVelocidad, .btnAdelantar {
+.btnretrasar, .btnVelocidad, .btnAdelantar, .btnMenu {
     color: #999;
-    margin-right: 0.5rem;
+    margin-right: 1.5rem;
     opacity: 0;
 }
 
@@ -119,6 +153,10 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .containerReproductor:hover .btnAdelantar {
+    opacity: 1;
+}
+
+.containerReproductor:hover .btnMenu {
     opacity: 1;
 }
 
