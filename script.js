@@ -14,6 +14,22 @@ var retrasarBtn = document.getElementById("retrasarBtn");
 //Obtener los elementos de velocidad
 var velocidadBtn = document.getElementById("velocidadBtn");
 var velocidadActual = 1; // Velocidad inicial del audio
+//obtener elemento menu
+var menuBtn = document.getElementById("menuBtn");
+//obtener elemento overlya del menu
+var overlay = document.querySelector(".overlay");
+var cerrarOverlay = document.getElementById("cerrarOverlay");
+
+
+//abrir el overlay
+menuBtn.addEventListener("click", () => {
+  overlay.style.display = "block";
+});
+
+//Cerrar el overlay
+cerrarOverlay.addEventListener("click", function () {
+  overlay.style.display = "none";
+});
 
 
 var wavesurfer = WaveSurfer.create({
