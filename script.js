@@ -19,6 +19,21 @@ var menuBtn = document.getElementById("menuBtn");
 //obtener elemento overlya del menu
 var overlay = document.querySelector(".overlay");
 var cerrarOverlay = document.getElementById("cerrarOverlay");
+//Array con los capitulos
+var chapters = [
+  {
+    title: "Chapter One",
+    start: 0,
+  },
+  {
+    title: "Chapter Two",
+    start: 30,
+  },
+  {
+    title: "Chapter Three",
+    start: 75,
+  },
+];
 
 
 //abrir el overlay
@@ -32,6 +47,7 @@ cerrarOverlay.addEventListener("click", function () {
 });
 
 
+//Ondas libreria wavesurfer
 var wavesurfer = WaveSurfer.create({
   container: "#waveform",
   waveColor: "#d8d8d8",
@@ -124,3 +140,30 @@ btnPlay.addEventListener("click", () => {
   adelantarBtn.addEventListener("click", function () {
      wavesurfer.skipForward(30);
   });
+
+
+  var ul = document.getElementById("listaCapitulos");
+
+  // Iteramos a través de la matriz de nombres
+  for (var i = 0; i < chapters.length; i++) {
+    var chapter = chapters[i]
+    // Creamos un nuevo elemento de lista li y le asignamos el nombre actual
+    var li = document.createElement("li");
+     li.textContent = formatTime(chapter.start) + " " + chapter.title;
+     li.setAttribute("class", "capitulo");
+     li.setAttribute("data-start", chapter.start);
+
+    // Agregamos el elemento li a la lista ul
+    ul.appendChild(li);
+  }
+
+document.querySelectorAll(".capitulo").forEach((li) => {
+  li.addEventListener("click", () => {
+    const startTime = li.getAttribute("data-start");
+    wavesurfer.seekTo(startTime / wavesurfer.getDuration());
+    var pause = document.getElementById("icons").className = "fa-solid fa-circle-pause";
+    wavesurfer.play();
+    overlay.style.display = "none";
+
+  });
+});
