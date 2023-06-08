@@ -7,7 +7,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="./css/estilos.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://unpkg.com/wavesurfer.js"></script>
+  <script src="https://unpkg.com/wavesurfer.js@6.6"></script>
 </head>
 <body>
   <div class="containerReproductor">
@@ -20,14 +20,14 @@
         </ul>
       </div>
     </div>
-    <div class="imagenReproductor">
+    <div class="imagenReproductor" id="imagenReproductor">
       <img src="./img/ruta.png" alt="">
     </div>
     <div class="elementosReproductor">
-      <audio id="audio" src="https://sonoro.nyc3.cdn.digitaloceanspaces.com/migraciones.mp3" type="audio/mpeg"></audio>
+      <audio id="audio" src="https://campusvirtual.b-cdn.net/AU_PCS_TS_TS506_CA-U4%20Migraciones.mp3" type="audio/mpeg"></audio>
       <div class="headerReproductor">
         <div class="playreproductor">
-          <button class="btn-play" id="play">
+          <button class="btn-play" id="play" disabled>
             <span>
               <i id="icons" class="fa-solid fa-circle-play"></i>
             </span>
@@ -53,7 +53,7 @@
             <!-- <i class="fa-solid fa-rotate-left"></i> -->
           </button>
           <button id="velocidadBtn" class="btnVelocidad">
-            <div id="icons2" class="imgVelocidad"></div>
+            <div id="icons2" class="imgVelocidad125"></div>
             <!-- <i id="icons2" class="fa-solid fa-user"></i> -->
           </button>
           <button id="menuBtn" class="btnMenu">

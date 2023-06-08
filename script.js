@@ -1,10 +1,10 @@
-//Element audio
+//Elemento audio
 var audio = document.getElementById("audio");
 //Elemento boton play
 var btnPlay = document.getElementById("play");
-// Obtén el elemento de la barra de progreso y su contenido interno
-var progressBar = document.getElementById('progress-bar');
-var progressBarInner = document.getElementById('progress-bar-inner');
+// // Obtén el elemento de la barra de progreso y su contenido interno
+// var progressBar = document.getElementById('progress-bar');
+// var progressBarInner = document.getElementById('progress-bar-inner');
 // Obtén los elementos del DOM para la duración y el tiempo actual
 var durationElement = document.getElementById('duration');
 var currentTimeElement = document.getElementById("current-time");
@@ -13,7 +13,6 @@ var adelantarBtn = document.getElementById("adelantarBtn");
 var retrasarBtn = document.getElementById("retrasarBtn");
 //Obtener los elementos de velocidad
 var velocidadBtn = document.getElementById("velocidadBtn");
-var velocidadActual = 1; // Velocidad inicial del audio
 //obtener elemento menu
 var menuBtn = document.getElementById("menuBtn");
 //obtener elemento overlya del menu
@@ -24,20 +23,24 @@ var chapters = [
   {
     title: "Chapter One",
     start: 0,
+    img: "./img/ruta.png",
   },
   {
     title: "Chapter Two",
     start: 30,
+    img: "./img/gym.png",
   },
   {
     title: "Chapter Three",
     start: 75,
+    img: "./img/salud.png",
   },
 ];
 
 
 //abrir el overlay
 menuBtn.addEventListener("click", () => {
+  wavesurfer.pause();
   overlay.style.display = "block";
 });
 
@@ -64,21 +67,25 @@ var wavesurfer = WaveSurfer.create({
 wavesurfer.load(audio);
 
 
+wavesurfer.on("ready", function () {
+  btnPlay.disabled = false;
+});
 
 //Realizamos la funcion para reproducir el audio y pausarlo al mismo modo cambiar los iconos
-var reproduciendo = false;
+let reproduciendo = false;
 btnPlay.addEventListener("click", () => {
 
     if (reproduciendo) {
       document.getElementById("icons").className = "fa-solid fa-circle-play";
       wavesurfer.pause();
+      reproduciendo = false;
       // Pausar el audio si está reproduciendo
     } else {
       document.getElementById("icons").className = "fa-solid fa-circle-pause";
       wavesurfer.play();
+      reproduciendo = true;
       // Reproducir el audio si está pausado
     }
-    reproduciendo = !reproduciendo;
 });
 
 
@@ -112,23 +119,24 @@ btnPlay.addEventListener("click", () => {
       });
 
   //Funcion para velocidad del audio
+  let currentSpeed = 1;
   velocidadBtn.addEventListener("click", function () {
-    //la velocida inicial que es 1
-    var currentSpeed = wavesurfer.getPlaybackRate();
 
-    if (currentSpeed < 1.25) {
-      document.getElementById("icons2").className = "imgVelocidad125";
-       wavesurfer.setPlaybackRate(currentSpeed + 0.25);
-    } else if (currentSpeed < 1.5) {
+    if (currentSpeed === 1) {
+      currentSpeed = 1.25;
       document.getElementById("icons2").className = "imgVelocidad15";
-      wavesurfer.setPlaybackRate(currentSpeed + 0.25);
-    } else if (currentSpeed < 2) {
+    } else if (currentSpeed === 1.25) {
+      currentSpeed = 1.5;
       document.getElementById("icons2").className = "imgVelocidad2";
-      wavesurfer.setPlaybackRate(currentSpeed + 0.5);
-    } else {
+    } else if (currentSpeed === 1.5) {
+      currentSpeed = 2;
       document.getElementById("icons2").className = "imgVelocidad";
-      wavesurfer.setPlaybackRate(1);
+    } else if (currentSpeed === 2) {
+      currentSpeed = 1;
+      document.getElementById("icons2").className = "imgVelocidad125";
     }
+
+    wavesurfer.setPlaybackRate(currentSpeed)
 
   });
 
@@ -161,9 +169,26 @@ document.querySelectorAll(".capitulo").forEach((li) => {
   li.addEventListener("click", () => {
     const startTime = li.getAttribute("data-start");
     wavesurfer.seekTo(startTime / wavesurfer.getDuration());
-    var pause = document.getElementById("icons").className = "fa-solid fa-circle-pause";
     wavesurfer.play();
     overlay.style.display = "none";
 
+    // Obtener el índice del capítulo seleccionado
+    const index = Array.from(li.parentNode.children).indexOf(li);
+
+    // Obtener la imagen correspondiente al capítulo
+    const selectedImg = chapters[index].img;
+
+    // Cambiar la imagen del div "imagenReproductor"
+    document.getElementById("imagenReproductor").innerHTML = `<img src="${selectedImg}" alt="">`;
   });
+});
+
+wavesurfer.on("play", function () {
+  document.getElementById("icons").className = "fa-solid fa-circle-pause";
+  reproduciendo = true;
+});
+
+wavesurfer.on("pause", function () {
+  document.getElementById("icons").className = "fa-solid fa-circle-play";
+  reproduciendo = false;
 });
