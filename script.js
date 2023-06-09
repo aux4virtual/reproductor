@@ -2,9 +2,6 @@
 var audio = document.getElementById("audio");
 //Elemento boton play
 var btnPlay = document.getElementById("play");
-// // Obtén el elemento de la barra de progreso y su contenido interno
-// var progressBar = document.getElementById('progress-bar');
-// var progressBarInner = document.getElementById('progress-bar-inner');
 // Obtén los elementos del DOM para la duración y el tiempo actual
 var durationElement = document.getElementById('duration');
 var currentTimeElement = document.getElementById("current-time");
@@ -69,6 +66,10 @@ wavesurfer.load(audio);
 
 wavesurfer.on("ready", function () {
   btnPlay.disabled = false;
+  adelantarBtn.disabled = false;
+  retrasarBtn.disabled = false;
+  velocidadBtn.disabled = false;
+  menuBtn.disabled = false;
 });
 
 //Realizamos la funcion para reproducir el audio y pausarlo al mismo modo cambiar los iconos
@@ -154,12 +155,21 @@ btnPlay.addEventListener("click", () => {
 
   // Iteramos a través de la matriz de nombres
   for (var i = 0; i < chapters.length; i++) {
-    var chapter = chapters[i]
+    var chapter = chapters[i];
     // Creamos un nuevo elemento de lista li y le asignamos el nombre actual
     var li = document.createElement("li");
-     li.textContent = formatTime(chapter.start) + " " + chapter.title;
-     li.setAttribute("class", "capitulo");
-     li.setAttribute("data-start", chapter.start);
+    //  li.textContent = formatTime(chapter.start) + " " + chapter.title;
+    li.setAttribute("class", "capitulo");
+    li.setAttribute("data-start", chapter.start);
+
+    // Creamos un elemento span y le asignamos el valor de chapter.start
+    var span = document.createElement("span");
+    span.textContent = formatTime(chapter.start);
+    // Agregamos el elemento span al elemento li
+    li.appendChild(span);
+
+    // Agregamos el título del capítulo al elemento li
+    li.appendChild(document.createTextNode(" " + chapter.title));
 
     // Agregamos el elemento li a la lista ul
     ul.appendChild(li);

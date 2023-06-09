@@ -41,6 +41,28 @@ h1, h2, h3, h4, h5, h6, p {
   cursor: pointer;
 }
 
+#listaCapitulos {
+    list-style: none;
+    padding: 0;
+}
+
+#listaCapitulos li{
+    color: #666;
+    border-bottom: 1px solid #eee;
+    padding: 8px;
+    font-size: 13px;
+}
+
+#listaCapitulos li:hover {
+    background: #f4f4f4;
+    cursor: pointer;
+    transition: background ease-in-out .2s;
+}
+
+#listaCapitulos li span{
+    color: #007b99;
+    margin-right: 30px;
+}
 
 .imagenReproductor {
     margin-right: 0.5rem;
@@ -105,14 +127,18 @@ h1, h2, h3, h4, h5, h6, p {
     background-image: url(../img/10.svg);
 }
 
-.imgadelantar, .imgVelocidad, .imgretrasar, .imgVelocidad125, .imgVelocidad15, .imgVelocidad2, .imgMenu {
+.imgInfo {
+    background-image: url(../img/info.svg);
+}
+
+.imgadelantar, .imgVelocidad, .imgretrasar, .imgVelocidad125, .imgVelocidad15, .imgVelocidad2, .imgMenu, .imgInfo {
         width: 25px;
         height: 25px;
         background-size: cover;
 }
 
 
-.btn-play, .btnretrasar, .btnVelocidad, .btnAdelantar, .btnMenu {
+.btn-play, .btnretrasar, .btnVelocidad, .btnAdelantar, .btnMenu, .btncreditos {
     background: none;
     border: 0;
     color: inherit;
@@ -171,7 +197,7 @@ h1, h2, h3, h4, h5, h6, p {
     font-weight: 500;
 }
 
-.btnretrasar, .btnVelocidad, .btnAdelantar, .btnMenu {
+.btnretrasar, .btnVelocidad, .btnAdelantar, .btnMenu, .btncreditos {
     color: #999;
     margin-right: 1.5rem;
     opacity: 0;
@@ -193,17 +219,16 @@ h1, h2, h3, h4, h5, h6, p {
     opacity: 1;
 }
 
+.containerReproductor:hover .btncreditos {
+    opacity: 1;
+}
+
 .botones {
     display: flex;
     justify-content:space-between;
     margin-left: 1rem;
 }
 
-.audio-time-controls a .material-icons{
-    font-size: 30px;
-    color: #666;
-    opacity: 10;
-}
 
 /* Tablet
 @media (min-width: 768px) {
