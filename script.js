@@ -12,9 +12,13 @@ var retrasarBtn = document.getElementById("retrasarBtn");
 var velocidadBtn = document.getElementById("velocidadBtn");
 //obtener elemento menu
 var menuBtn = document.getElementById("menuBtn");
-//obtener elemento overlya del menu
+//obtener elemento creditos
+var creditosBtn = document.getElementById("creditosBtn");
+//obtener elemento overlya del menu y creditos
 var overlay = document.querySelector(".overlay");
+var overlayCreditos = document.querySelector(".overlayCreditos");
 var cerrarOverlay = document.getElementById("cerrarOverlay");
+var cerrarOverlay2 = document.getElementById("cerrarOverlay2");
 //Array con los capitulos
 var chapters = [
   {
@@ -35,15 +39,27 @@ var chapters = [
 ];
 
 
-//abrir el overlay
+//abrir el overlay menu
 menuBtn.addEventListener("click", () => {
   wavesurfer.pause();
   overlay.style.display = "block";
 });
 
-//Cerrar el overlay
+//abrir el overlay Creditos
+creditosBtn.addEventListener("click", () => {
+  wavesurfer.pause();
+  overlayCreditos.style.display = "block";
+});
+
+//Cerrar el overlay menu
 cerrarOverlay.addEventListener("click", function () {
   overlay.style.display = "none";
+  overlayCreditos.style.display = "none";
+});
+
+//Cerrar el overlay creditos
+cerrarOverlay2.addEventListener("click", function () {
+  overlayCreditos.style.display = "none";
 });
 
 
@@ -70,6 +86,7 @@ wavesurfer.on("ready", function () {
   retrasarBtn.disabled = false;
   velocidadBtn.disabled = false;
   menuBtn.disabled = false;
+  creditosBtn.disabled = false;
 });
 
 //Realizamos la funcion para reproducir el audio y pausarlo al mismo modo cambiar los iconos
