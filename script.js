@@ -2,7 +2,7 @@
 var audio = document.getElementById("audio");
 //Elemento boton play
 var btnPlay = document.getElementById("play");
-// Obtén los elementos del DOM para la duración y el tiempo actual
+// Elementos del DOM para la duración y el tiempo actual
 var durationElement = document.getElementById('duration');
 var currentTimeElement = document.getElementById("current-time");
 //Obtener los elementos adelantar y atrasar
@@ -69,8 +69,8 @@ var wavesurfer = WaveSurfer.create({
   waveColor: "#d8d8d8",
   progressColor: "#007b99",
   barWidth: 4,
-  barGap: 3,
-  height: 50,
+  barGap: 4,
+  height: 60,
   responsive: true,
   hideScrollbar: true,
   barRadius: 4,
@@ -79,7 +79,7 @@ var wavesurfer = WaveSurfer.create({
 
 wavesurfer.load(audio);
 
-
+//Metodo para bloquear los botones hasta que cargue el audio
 wavesurfer.on("ready", function () {
   btnPlay.disabled = false;
   adelantarBtn.disabled = false;
