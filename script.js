@@ -1,5 +1,87 @@
-//Elemento audio
-var audio = document.getElementById("audio");
+const url = "http://localhost:3000/datos";
+document.addEventListener("DOMContentLoaded", llamarAPI);
+
+function llamarAPI() {
+  fetch(url).then((resp) => resp.json()).then(data => {
+      data.forEach(items => {
+        const title = items.title;
+        const subtitle = items.subtitle;
+        const audio_path = items.audio_path;
+        const cover_path = items.cover_path;
+        const chapters = items.chapters;
+        const credits = items.credits;
+
+        document.getElementById("cover_path").src = `${cover_path}`;
+        wavesurfer.load(audio_path);
+
+        //recorremos todos los elementos del HTML y colocamos el titulo a los elementos que tienen la clase title
+        const titulos = document.getElementsByClassName("title");
+        for (const titulo of titulos) {
+          titulo.textContent = `${title}`;
+        }
+
+        //recorremos todos los elementos del HTML y colocamos el subtitulo a los elementos que tienen la clase subtitle
+        const subtitulos = document.getElementsByClassName("subtitle");
+        for (const subtitulo of subtitulos) {
+          subtitulo.textContent = `${subtitle}`;
+        }
+
+        //Recorremos el objeto chapters y creamos una lista para mostrarla en el html
+        var ul = document.getElementById("listaCapitulos");
+        for (var i = 0; i < chapters.length; i++) {
+          var chapter = chapters[i];
+          // Creamos un nuevo elemento de lista li y le asignamos el nombre actual
+          var li = document.createElement("li");
+          //  li.textContent = formatTime(chapter.start) + " " + chapter.title;
+          li.setAttribute("class", "capitulo");
+          li.setAttribute("data-start", chapter.start);
+
+          // Creamos un elemento span y le asignamos el valor de chapter.start
+          var span = document.createElement("span");
+          span.textContent = formatTime(chapter.start);
+          // Agregamos el elemento span al elemento li
+          li.appendChild(span);
+
+          // Agregamos el título del capítulo al elemento li
+          li.appendChild(document.createTextNode(" " + chapter.chapter));
+
+          // Agregamos el elemento li a la lista ul
+          ul.appendChild(li);
+
+          //recorremos los capitulos creados y creamos la funcion clic para reproducir y cambiar la imagen
+          document.querySelectorAll(".capitulo").forEach((li) => {
+            li.addEventListener("click", () => {
+              const startTime = li.getAttribute("data-start");
+              wavesurfer.seekTo(startTime / wavesurfer.getDuration());
+              wavesurfer.play();
+              overlay.style.display = "none";
+
+              // Obtener el índice del capítulo seleccionado
+              const index = Array.from(li.parentNode.children).indexOf(li);
+
+              // Obtener la imagen correspondiente al capítulo
+              const selectedImg = chapters[index].img;
+
+              // Cambiar la imagen del div "imagenReproductor"
+              document.getElementById(
+                "imagenReproductor"
+              ).innerHTML = `<img src="${selectedImg}" alt="">`;
+            });
+          });
+        }
+
+        //Recorremos el objeto credits y mostramos todos los elementos en el overlay creditos
+        for (const credit of credits) {
+          document.getElementById("published").textContent = credit.published;
+          document.getElementById("description").textContent = credit.description;
+          document.getElementById("author").textContent = credit.author;
+        }
+      })
+
+
+  });
+}
+
 //Elemento boton play
 var btnPlay = document.getElementById("play");
 // Elementos del DOM para la duración y el tiempo actual
@@ -19,24 +101,7 @@ var overlay = document.querySelector(".overlay");
 var overlayCreditos = document.querySelector(".overlayCreditos");
 var cerrarOverlay = document.getElementById("cerrarOverlay");
 var cerrarOverlay2 = document.getElementById("cerrarOverlay2");
-//Array con los capitulos
-var chapters = [
-  {
-    title: "Chapter One",
-    start: 0,
-    img: "./img/ruta.png",
-  },
-  {
-    title: "Chapter Two",
-    start: 30,
-    img: "./img/gym.png",
-  },
-  {
-    title: "Chapter Three",
-    start: 75,
-    img: "./img/salud.png",
-  },
-];
+
 
 
 //abrir el overlay menu
@@ -77,7 +142,7 @@ var wavesurfer = WaveSurfer.create({
   cursorColor: "white",
 });
 
-wavesurfer.load(audio);
+
 
 //Metodo para bloquear los botones hasta que cargue el audio
 wavesurfer.on("ready", function () {
@@ -125,36 +190,32 @@ btnPlay.addEventListener("click", () => {
       }
 
 // Obtener la duración del audio y mostrarla en la consola
-      audio.addEventListener("loadedmetadata", function () {
-        // Obtén la duración total del audio en segundos
-        var duration = audio.duration;
+wavesurfer.on("ready", function () {
+  const duration = wavesurfer.getDuration();
+  var durationFormatted = formatTime(duration);
+  durationElement.textContent = durationFormatted;
+});
 
-        // Convierte la duración a un formato legible (por ejemplo, minutos:segundos)
-        var durationFormatted = formatTime(duration);
 
-        // Muestra la duración total del audio en el elemento HTML correspondiente
-        durationElement.textContent = durationFormatted;
-      });
+//Funcion para velocidad del audio
+let currentSpeed = 1;
+velocidadBtn.addEventListener("click", function () {
 
-  //Funcion para velocidad del audio
-  let currentSpeed = 1;
-  velocidadBtn.addEventListener("click", function () {
+  if (currentSpeed === 1) {
+    currentSpeed = 1.25;
+    document.getElementById("icons2").className = "imgVelocidad15";
+  } else if (currentSpeed === 1.25) {
+    currentSpeed = 1.5;
+    document.getElementById("icons2").className = "imgVelocidad2";
+  } else if (currentSpeed === 1.5) {
+    currentSpeed = 2;
+    document.getElementById("icons2").className = "imgVelocidad";
+  } else if (currentSpeed === 2) {
+    currentSpeed = 1;
+    document.getElementById("icons2").className = "imgVelocidad125";
+  }
 
-    if (currentSpeed === 1) {
-      currentSpeed = 1.25;
-      document.getElementById("icons2").className = "imgVelocidad15";
-    } else if (currentSpeed === 1.25) {
-      currentSpeed = 1.5;
-      document.getElementById("icons2").className = "imgVelocidad2";
-    } else if (currentSpeed === 1.5) {
-      currentSpeed = 2;
-      document.getElementById("icons2").className = "imgVelocidad";
-    } else if (currentSpeed === 2) {
-      currentSpeed = 1;
-      document.getElementById("icons2").className = "imgVelocidad125";
-    }
-
-    wavesurfer.setPlaybackRate(currentSpeed)
+  wavesurfer.setPlaybackRate(currentSpeed)
 
   });
 
@@ -168,47 +229,7 @@ btnPlay.addEventListener("click", () => {
   });
 
 
-  var ul = document.getElementById("listaCapitulos");
 
-  // Iteramos a través de la matriz de nombres
-  for (var i = 0; i < chapters.length; i++) {
-    var chapter = chapters[i];
-    // Creamos un nuevo elemento de lista li y le asignamos el nombre actual
-    var li = document.createElement("li");
-    //  li.textContent = formatTime(chapter.start) + " " + chapter.title;
-    li.setAttribute("class", "capitulo");
-    li.setAttribute("data-start", chapter.start);
-
-    // Creamos un elemento span y le asignamos el valor de chapter.start
-    var span = document.createElement("span");
-    span.textContent = formatTime(chapter.start);
-    // Agregamos el elemento span al elemento li
-    li.appendChild(span);
-
-    // Agregamos el título del capítulo al elemento li
-    li.appendChild(document.createTextNode(" " + chapter.title));
-
-    // Agregamos el elemento li a la lista ul
-    ul.appendChild(li);
-  }
-
-document.querySelectorAll(".capitulo").forEach((li) => {
-  li.addEventListener("click", () => {
-    const startTime = li.getAttribute("data-start");
-    wavesurfer.seekTo(startTime / wavesurfer.getDuration());
-    wavesurfer.play();
-    overlay.style.display = "none";
-
-    // Obtener el índice del capítulo seleccionado
-    const index = Array.from(li.parentNode.children).indexOf(li);
-
-    // Obtener la imagen correspondiente al capítulo
-    const selectedImg = chapters[index].img;
-
-    // Cambiar la imagen del div "imagenReproductor"
-    document.getElementById("imagenReproductor").innerHTML = `<img src="${selectedImg}" alt="">`;
-  });
-});
 
 wavesurfer.on("play", function () {
   document.getElementById("icons").className = "fa-solid fa-circle-pause";

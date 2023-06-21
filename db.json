@@ -1,0 +1,35 @@
+{
+  "datos": [
+    {
+      "id": 1,
+      "title": "Unidad 1: Reseña histórica y enfoques en adicciones químicas y comportamentales",
+      "subtitle": "Universidad Católica Luis Amigó",
+      "audio_path": "https://campus.ucatolicaluisamigo.cloud/audio.mp3",
+      "cover_path": "./img/ruta.png",
+      "credits": [
+        {
+        "published": "Educación Virtual",
+        "description": "Esta unidad te permitirá caracterizar la cultura organizacional, los elementos que la componen y su relación con el comportamiento y desarrollo organizacional. Adicionalmente, te brindará las bases para proponer estrategias de gestión de la cultura en las organizaciones",
+        "author": "Alejandra Peláez"
+        }
+      ],
+      "chapters": [
+        {
+        "chapter": "Chapter One",
+        "start": 0,
+        "img": "./img/ruta.png"
+        },
+        {
+        "chapter": "Chapter two",
+        "start": 30,
+        "img": "./img/gym.png"
+        },
+        {
+        "chapter": "Chapter three",
+        "start": 75,
+        "img": "./img/salud.png"
+        }
+      ]
+    }
+  ]
+}
