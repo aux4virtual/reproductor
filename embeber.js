@@ -5,7 +5,7 @@ function embedPage() {
   var iframe = document.createElement("iframe");
   iframe.src = "https://aux4virtual.github.io/reproductor/";
   iframe.width = "100%";
-  iframe.height = "270";
+  iframe.height = "400";
   iframe.frameBorder = "0";
   iframe.scrolling = "no";
   embedContainer.appendChild(iframe);
