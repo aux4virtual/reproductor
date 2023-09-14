@@ -1,85 +1,92 @@
-const url = "http://localhost:3000/datos";
+const url = "https://ucatolicaluisamigo.cloud/api/audio";
 document.addEventListener("DOMContentLoaded", llamarAPI);
 
 function llamarAPI() {
-  fetch(url).then((resp) => resp.json()).then(data => {
-      data.forEach(items => {
-        const title = items.title;
-        const subtitle = items.subtitle;
-        const audio_path = items.audio_path;
-        const cover_path = items.cover_path;
-        const chapters = items.chapters;
-        const credits = items.credits;
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("La solicitud no fue exitosa");
+      }
+      return response.json(); // Convierte la respuesta en un objeto JSON
+    })
+    .then(data => {
+      const title = data.datos[0].title;
+      const subtitle = data.datos[0].subtitle;
+      const audio_path = data.datos[0].audio_path;
+      const cover_path = data.datos[0].cover_path;
+      const chapters = data.datos[0].chapters;
+      const credits = data.datos[0].credits;
 
-        document.getElementById("cover_path").src = `${cover_path}`;
-        wavesurfer.load(audio_path);
+      // Acceder a las propiedades de 'credits'
+      const published = credits.published;
+      const description = credits.description;
+      const author = credits.author;
 
-        //recorremos todos los elementos del HTML y colocamos el titulo a los elementos que tienen la clase title
-        const titulos = document.getElementsByClassName("title");
-        for (const titulo of titulos) {
-          titulo.textContent = `${title}`;
-        }
+      document.getElementById("cover_path").src = `${cover_path}`;
+      wavesurfer.load(audio_path);
 
-        //recorremos todos los elementos del HTML y colocamos el subtitulo a los elementos que tienen la clase subtitle
-        const subtitulos = document.getElementsByClassName("subtitle");
-        for (const subtitulo of subtitulos) {
-          subtitulo.textContent = `${subtitle}`;
-        }
+      //recorremos todos los elementos del HTML y colocamos el titulo a los elementos que tienen la clase title
+      const titulos = document.getElementsByClassName("title");
+      for (const titulo of titulos) {
+        titulo.textContent = `${title}`;
+      }
 
-        //Recorremos el objeto chapters y creamos una lista para mostrarla en el html
-        var ul = document.getElementById("listaCapitulos");
-        for (var i = 0; i < chapters.length; i++) {
-          var chapter = chapters[i];
-          // Creamos un nuevo elemento de lista li y le asignamos el nombre actual
-          var li = document.createElement("li");
-          //  li.textContent = formatTime(chapter.start) + " " + chapter.title;
-          li.setAttribute("class", "capitulo");
-          li.setAttribute("data-start", chapter.start);
+      //recorremos todos los elementos del HTML y colocamos el subtitulo a los elementos que tienen la clase subtitle
+      const subtitulos = document.getElementsByClassName("subtitle");
+      for (const subtitulo of subtitulos) {
+        subtitulo.textContent = `${subtitle}`;
+      }
 
-          // Creamos un elemento span y le asignamos el valor de chapter.start
-          var span = document.createElement("span");
-          span.textContent = formatTime(chapter.start);
-          // Agregamos el elemento span al elemento li
-          li.appendChild(span);
+      //Recorremos el objeto chapters y creamos una lista para mostrarla en el html
+      var ul = document.getElementById("listaCapitulos");
+      for (var i = 0; i < chapters.length; i++) {
+        var chapter = chapters[i];
+        // Creamos un nuevo elemento de lista li y le asignamos el nombre actual
+        var li = document.createElement("li");
+        //  li.textContent = formatTime(chapter.start) + " " + chapter.title;
+        li.setAttribute("class", "capitulo");
+        li.setAttribute("data-start", chapter.start);
 
-          // Agregamos el título del capítulo al elemento li
-          li.appendChild(document.createTextNode(" " + chapter.chapter));
+        // Creamos un elemento span y le asignamos el valor de chapter.start
+        var span = document.createElement("span");
+        span.textContent = formatTime(chapter.start);
+        // Agregamos el elemento span al elemento li
+        li.appendChild(span);
 
-          // Agregamos el elemento li a la lista ul
-          ul.appendChild(li);
+        // Agregamos el título del capítulo al elemento li
+        li.appendChild(document.createTextNode(" " + chapter.chapter));
 
-          //recorremos los capitulos creados y creamos la funcion clic para reproducir y cambiar la imagen
-          document.querySelectorAll(".capitulo").forEach((li) => {
-            li.addEventListener("click", () => {
-              const startTime = li.getAttribute("data-start");
-              wavesurfer.seekTo(startTime / wavesurfer.getDuration());
-              wavesurfer.play();
-              overlay.style.display = "none";
+        // Agregamos el elemento li a la lista ul
+        ul.appendChild(li);
 
-              // Obtener el índice del capítulo seleccionado
-              const index = Array.from(li.parentNode.children).indexOf(li);
+        //recorremos los capitulos creados y creamos la funcion clic para reproducir y cambiar la imagen
+        document.querySelectorAll(".capitulo").forEach((li) => {
+          li.addEventListener("click", () => {
+            const startTime = li.getAttribute("data-start");
+            wavesurfer.seekTo(startTime / wavesurfer.getDuration());
+            wavesurfer.play();
+            overlay.style.display = "none";
 
-              // Obtener la imagen correspondiente al capítulo
-              const selectedImg = chapters[index].img;
+            // Obtener el índice del capítulo seleccionado
+            const index = Array.from(li.parentNode.children).indexOf(li);
 
-              // Cambiar la imagen del div "imagenReproductor"
-              document.getElementById(
-                "imagenReproductor"
-              ).innerHTML = `<img src="${selectedImg}" alt="">`;
-            });
+            // Obtener la imagen correspondiente al capítulo
+            const selectedImg = chapters[index].img;
+
+            // Cambiar la imagen del div "imagenReproductor"
+            document.getElementById(
+              "imagenReproductor"
+            ).innerHTML = `<img src="${selectedImg}" alt="">`;
           });
-        }
+        });
+      }
 
-        //Recorremos el objeto credits y mostramos todos los elementos en el overlay creditos
-        for (const credit of credits) {
-          document.getElementById("published").textContent = credit.published;
-          document.getElementById("description").textContent = credit.description;
-          document.getElementById("author").textContent = credit.author;
-        }
-      })
+      // Mostramos todos los elementos en el overlay creditos
+        document.getElementById("published").textContent = published;
+        document.getElementById("description").textContent = description;
+        document.getElementById("author").textContent = author;
 
-
-  });
+    });
 }
 
 //Elemento boton play
